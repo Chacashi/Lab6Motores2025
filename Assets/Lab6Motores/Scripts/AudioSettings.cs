@@ -15,6 +15,10 @@ public partial class AudioSettings : ScriptableObject
     [SerializeField] private bool isMuted;
 
     public AudioMixerGroup AudioMixerGroup => audioMixerGroup;
+    public void SetAudioMixerGroup(AudioMixerGroup audioMixerGroup)
+    {
+        this.audioMixerGroup = audioMixerGroup;
+    }
     public float VolumeScaled => volumeScaled;
 
     public Action<float> OnUpdateVolume;

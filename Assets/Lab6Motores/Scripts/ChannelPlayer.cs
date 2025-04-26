@@ -2,27 +2,47 @@
 using UnityEngine.Audio;
 
 
-    public class ChannelPlayer : MonoBehaviour
+public class ChannelPlayer : MonoBehaviour
+{
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSettings audioSettings;
+
+    public AudioMixerGroup PlayerChannel => audioSource.outputAudioMixerGroup;
+    public AudioSource AudioSource => audioSource;
+
+    private void Awake()
     {
-        [SerializeField] private AudioSource audioSource;
-        [SerializeField] private AudioSettings audioSettings;
-
-        public AudioMixerGroup PlayerChannel => audioSource.outputAudioMixerGroup;
-
-        private void Awake()
-        {
-            audioSource.outputAudioMixerGroup = audioSettings.AudioMixerGroup;
-        }
-
-        public void PlayerClip( AudioClip clipToPlay)
-        {
-            audioSource.Stop();
-
-            audioSource.clip = clipToPlay;
-
-            audioSource.Play();
-        }
+        audioSource.outputAudioMixerGroup = audioSettings.AudioMixerGroup;
     }
+
+    private void OnEnable()
+    {
+        InteractableObject.OnExitCollisionMusic += StopAudio;
+    }
+
+    private void OnDisable()
+    {
+        InteractableObject.OnExitCollisionMusic -= StopAudio;
+    }
+
+    public void PlayerClip(AudioClip clipToPlay)
+    {
+        audioSource.Stop();
+
+        audioSource.clip = clipToPlay;
+
+        audioSource.Play();
+    }
+
+    void StopAudio()
+    {
+        audioSource.Stop();
+    }
+
+
+
+
+}
 
 
 

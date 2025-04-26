@@ -16,6 +16,6 @@ MonoBehaviour:
   audioMixerGroup: {fileID: 2000460596647525030, guid: f0eb806a5a2bb754bae750f8dd6fcbce, type: 2}
   audioMixerKey: VolumeMusic
   audioKeySafe: VolumeMusic
-  volumeScaled: 0.8
-  volumeDBs: -1.9382001
+  volumeScaled: 1
+  volumeDBs: 0
   isMuted: 0

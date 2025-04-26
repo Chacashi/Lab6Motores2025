@@ -2,32 +2,44 @@
 using UnityEngine.Audio;
 
 
-    public class AudioPlayer : MonoBehaviour
+public class AudioPlayer : MonoBehaviour
+{
+    [SerializeField] private ChannelPlayer musicPlayer;
+    [SerializeField] private ChannelPlayer sfxPlayer;
+    [SerializeField] private AudioClip intersectionRoomsClip;
+    private void OnEnable()
     {
-        [SerializeField] private ChannelPlayer musicPlayer;
-        [SerializeField] private ChannelPlayer sfxPlayer;
-        private void OnEnable()
-        {
-            InteractableObject.OnCollisionMusic += PlayPlayer;
-        }
+        InteractableObject.OnCollisionMusic += PlayPlayer;
+        InteractableObject.OnPlayNewMusic += PlayOneshoot;
+        InteractableObject.OnExitCollisionMusic += PlayOneshoot;
 
-        private void OnDisable()
-        {
-            InteractableObject.OnCollisionMusic -= PlayPlayer;
-        }
+    }
 
-        private void PlayPlayer(AudioMixerGroup currentGroup, AudioClip currentAudioClip)
+    private void OnDisable()
+    {
+        InteractableObject.OnCollisionMusic -= PlayPlayer;
+        InteractableObject.OnPlayNewMusic -=PlayOneshoot;
+        InteractableObject.OnExitCollisionMusic -=PlayOneshoot;
+    }
+
+    private void PlayPlayer(AudioMixerGroup currentGroup, AudioClip currentAudioClip)
+    {
+        if (currentGroup == musicPlayer.PlayerChannel)
         {
-            if (currentGroup == musicPlayer.PlayerChannel)
-            {
-                musicPlayer.PlayerClip(currentAudioClip);
-            }
-            else
-            {
-                sfxPlayer.PlayerClip(currentAudioClip);
-            }
+            musicPlayer.PlayerClip(currentAudioClip);
+        }
+        else
+        {
+            sfxPlayer.PlayerClip(currentAudioClip);
         }
     }
+
+
+    void PlayOneshoot()
+    {
+        sfxPlayer.AudioSource.PlayOneShot(intersectionRoomsClip);
+    }
+}
 
 
 

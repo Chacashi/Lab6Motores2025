@@ -5,6 +5,9 @@
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioSettings[] audioSettings;
+    [SerializeField] private AudioSource ChannelMusic;
+    
+ 
 
     private float[] _savedVolumes;
     private int _dataLength;
@@ -22,11 +25,16 @@ public class AudioManager : MonoBehaviour
         {
             _savedVolumes[i] = audioSettings[i].VolumeScaled;
         }
+
+
+        InteractableObject.OnPlayNewMusic += StopAudio;
+        InteractableObject.OnExitCollisionMusic += PlayAudio;
     }
 
     private void OnDisable()
     {
-
+        InteractableObject.OnPlayNewMusic -= StopAudio;
+        InteractableObject.OnExitCollisionMusic -= PlayAudio;
     }
 
     public void RevertChanges()
@@ -45,6 +53,16 @@ public class AudioManager : MonoBehaviour
 
             _savedVolumes[i] = audioSettings[i].VolumeScaled;
         }
+    }
+
+    void PlayAudio()
+    {
+        ChannelMusic.UnPause();
+    }
+
+    void StopAudio()
+    {
+        ChannelMusic.Pause();
     }
 }
 
