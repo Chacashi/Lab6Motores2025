@@ -34,4 +34,10 @@ public class PlayerController : MonoBehaviour
     {
         directionPlayer = new Vector2(direction.x, direction.y);
     }
+
+
+
 }
+
+
+
