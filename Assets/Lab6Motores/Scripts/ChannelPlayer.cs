@@ -36,7 +36,11 @@ public class ChannelPlayer : MonoBehaviour
 
     void StopAudio()
     {
-        audioSource.Stop();
+        if (!this.CompareTag("ChannelSfx"))
+        {
+            audioSource.Stop();
+        }
+        
     }
 
 

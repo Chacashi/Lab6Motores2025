@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 
 public class InteractableObject : MonoBehaviour
@@ -18,6 +19,14 @@ public class InteractableObject : MonoBehaviour
         {
             OnCollisionMusic?.Invoke(audioSettings.AudioMixerGroup, audioData.AudioClip);
             OnPlayNewMusic?.Invoke();
+            if (this.gameObject.CompareTag("Portal1"))
+            {
+                SceneManager.LoadScene("World 2");
+            }
+            if (this.gameObject.CompareTag("Portal2"))
+            {
+                SceneManager.LoadScene("World 1");
+            }
 
         }
     }
@@ -26,13 +35,16 @@ public class InteractableObject : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            
+
             OnExitCollisionMusic?.Invoke();
         }
     }
-
-
 }
+
+   
+
+
+
 
 
 

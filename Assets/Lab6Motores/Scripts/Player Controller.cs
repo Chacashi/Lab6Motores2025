@@ -1,11 +1,14 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     Rigidbody _compRigidbody;
     [SerializeField] private float speed;
     private Vector2 directionPlayer;
+    
 
     private void Awake()
     {
@@ -34,6 +37,8 @@ public class PlayerController : MonoBehaviour
     {
         directionPlayer = new Vector2(direction.x, direction.y);
     }
+
+   
 
 
 
